@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { movies } from "../../modules/ApiLinks";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 import {
   Card,
   CardHeader,
@@ -19,7 +22,7 @@ interface Movie {
   ratingCode: string | null;
 }
 export default function MovieList() {
-
+    const navigate = useNavigate();
      const [movieList, setMoviesList] = useState<Movie[]>([]);
 
      useEffect(() => {
@@ -38,7 +41,7 @@ export default function MovieList() {
         </h2>
         <div className="grid grid-cols-2  gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
           {movieList.map((movie) => (
-            <Card key={movie.id} className="overflow-hidden">
+            <Card key={movie.id} className="overflow-hidden" onClick={() => navigate(`${movies}/${movie.id}`)}>
               <img
                 src={movie.url}
                 alt={movie.title}

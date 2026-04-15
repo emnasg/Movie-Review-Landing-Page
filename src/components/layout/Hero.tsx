@@ -12,9 +12,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { topFive } from "../../modules/ApiLinks";
+import { topFive, movies } from "../../modules/ApiLinks";
 import axios from "axios";
 
 export default function Hero() {
@@ -25,13 +25,13 @@ export default function Hero() {
     averageRating: string;
     reviewCount: number;
   }
-
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const navigate = useNavigate();
+  const [topMovies, setTopMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     axios
       .get(topFive)
-      .then((res) => setMovies(res.data))
+      .then((res) => setTopMovies(res.data))
       .catch((err) => console.error("Failed to fetch movies:", err));
   });
 
@@ -43,10 +43,11 @@ export default function Hero() {
         </h2>
         <Carousel>
           <CarouselContent className="px-5">
-            {movies.map((movie) => (
+            {topMovies.map((movie) => (
               <CarouselItem
                 key={movie.id}
                 className="sm:basis-full md:basis-1/2 lg:basis-1/3"
+                onClick={() => navigate(`${movies}/${movie.id}`)}
               >
                 <Card className="relative overflow-hidden pb-0">
                   <img
@@ -60,7 +61,9 @@ export default function Hero() {
                       {movie.title}
                     </CardTitle>
                     <CardDescription className="flex gap-2 font-medium">
-                      <Badge className="bg-gray-800 border-gray-600  shadow">⭐ {movie.averageRating.toFixed(1)}</Badge>
+                      <Badge className="bg-gray-800 border-gray-600  shadow">
+                        ⭐ {movie.averageRating.toFixed(1)}
+                      </Badge>
                       <p className="text-gray-400">
                         {movie.reviewCount} review
                         {movie.reviewCount !== 1 ? "s" : ""}{" "}
