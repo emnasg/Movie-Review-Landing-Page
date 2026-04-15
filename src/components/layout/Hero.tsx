@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { topFive, movies } from "../../modules/ApiLinks";
+import { topFive} from "../../modules/ApiLinks";
 import axios from "axios";
 
 export default function Hero() {
@@ -22,7 +22,7 @@ export default function Hero() {
     id: number;
     title: string;
     url: string;
-    averageRating: string;
+    averageRating: number;
     reviewCount: number;
   }
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function Hero() {
                     className=" aspect-2/3 w-full h-full object-cover"
                   />
 
-                  <CardHeader className="absolute w-full bottom-0 py-4 rounded-none z-10 bg-gradient-to-t from-black/80 to-transparent">
+                  <CardHeader className="absolute w-full bottom-0 py-4 rounded-none z-10 bg-linear-to-t from-black/80 to-transparent">
                     <CardTitle className="text-xl font-semibold text-gray-50">
                       {movie.title}
                     </CardTitle>
