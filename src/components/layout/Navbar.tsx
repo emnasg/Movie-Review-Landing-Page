@@ -20,9 +20,11 @@ function Navbar() {
   });
   return (
     <>
-      <div>
-        <img src={logo} alt="logo" />
-      </div>
+      <nav>
+        <div className="max-w-7xl p-4 mx-auto">
+          <img src={logo} alt="logo"  className="mx-auto"/>
+        </div>
+      </nav>
     </>
   );
 }

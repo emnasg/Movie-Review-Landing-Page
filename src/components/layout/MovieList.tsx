@@ -11,15 +11,17 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+import { Badge } from "@/components/ui/badge";
+
 interface Movie {
   id: number;
   title: string;
   url: string;
   synopsis: string;
   runtime: string;
+  averageCriticScore: number;
   releaseDate: string;
   genreName: string | null;
-  ratingCode: string | null;
 }
 export default function MovieList() {
     const navigate = useNavigate();
@@ -41,26 +43,27 @@ export default function MovieList() {
         </h2>
         <div className="grid grid-cols-2  gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
           {movieList.map((movie) => (
-            <Card key={movie.id} className="overflow-hidden" onClick={() => navigate(`${movies}/${movie.id}`)}>
+            <Card
+              key={movie.id}
+              className="overflow-hidden"
+              onClick={() => navigate(`/movies/${movie.id}`)}
+            >
               <img
                 src={movie.url}
                 alt={movie.title}
-                className="aspect-[2/3] w-full object-cover"
+                className="aspect-2/3 w-full object-cover"
               />
               <CardHeader>
                 <CardTitle className="line-clamp-1 text-sm">
                   {movie.title}
                 </CardTitle>
                 <CardDescription className="space-y-1">
-                  <span className="block text-xs">{movie.runtime}</span>
-                  {movie.genreName && (
-                    <span className="block text-xs">{movie.genreName}</span>
-                  )}
-                  {movie.ratingCode && (
-                    <span className="inline-block rounded border px-1 text-xs">
-                      {movie.ratingCode}
-                    </span>
-                  )}
+                  <span className="text-xs mr-2">{movie.runtime}</span>
+                  <span>
+                    <Badge variant="outline">
+                      ⭐ {movie.averageCriticScore.toFixed(1)}
+                    </Badge>
+                  </span>
                 </CardDescription>
               </CardHeader>
             </Card>

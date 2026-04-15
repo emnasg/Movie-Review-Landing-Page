@@ -47,7 +47,7 @@ export default function Hero() {
               <CarouselItem
                 key={movie.id}
                 className="sm:basis-full md:basis-1/2 lg:basis-1/3"
-                onClick={() => navigate(`${movies}/${movie.id}`)}
+                onClick={() => navigate(`/movies/${movie.id}`)}
               >
                 <Card className="relative overflow-hidden pb-0">
                   <img
