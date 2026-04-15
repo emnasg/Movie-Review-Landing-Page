@@ -1,0 +1,69 @@
+import { useEffect, useState } from "react";
+import { movies } from "../../modules/ApiLinks";
+import axios from "axios";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+
+interface Movie {
+  id: number;
+  title: string;
+  url: string;
+  synopsis: string;
+  runtime: string;
+  releaseDate: string;
+  genreName: string | null;
+  ratingCode: string | null;
+}
+export default function MovieList() {
+
+     const [movieList, setMoviesList] = useState<Movie[]>([]);
+
+     useEffect(() => {
+       axios
+         .get(movies)
+         .then((res) => setMoviesList(res.data))
+         .catch((err) => console.error("Failed to fetch movies:", err));
+     });
+
+    
+  return (
+    <>
+      <section className="max-w-7xl  mx-auto">
+        <h2 className="font-semibold text-xl text-blue-600 tracking-tight  mt-10 px-4">
+          All Movie Reviews{" "}
+        </h2>
+        <div className="grid grid-cols-2  gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+          {movieList.map((movie) => (
+            <Card key={movie.id} className="overflow-hidden">
+              <img
+                src={movie.url}
+                alt={movie.title}
+                className="aspect-[2/3] w-full object-cover"
+              />
+              <CardHeader>
+                <CardTitle className="line-clamp-1 text-sm">
+                  {movie.title}
+                </CardTitle>
+                <CardDescription className="space-y-1">
+                  <span className="block text-xs">{movie.runtime}</span>
+                  {movie.genreName && (
+                    <span className="block text-xs">{movie.genreName}</span>
+                  )}
+                  {movie.ratingCode && (
+                    <span className="inline-block rounded border px-1 text-xs">
+                      {movie.ratingCode}
+                    </span>
+                  )}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
