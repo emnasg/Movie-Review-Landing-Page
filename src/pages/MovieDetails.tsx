@@ -61,7 +61,7 @@ export default function MovieDetails() {
           <img
             src={movie.url}
             alt={movie.title}
-            className="w-48 shrink-0 rounded-lg object-cover aspect-[2/3]"
+            className="w-48 shrink-0 rounded-lg object-cover aspect-2/3"
           />
           <div className="space-y-3">
             <h1 className="text-3xl font-semibold">{movie.title}</h1>
